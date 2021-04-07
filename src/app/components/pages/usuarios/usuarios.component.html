@@ -2,34 +2,43 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header ">
-        <div class="row">
-            <!-- <h5 class="card-category">Lista Completa</h5> -->
-            <h2 class="card-title title d-inline" style="padding-left: 15px;" >Usuários</h2>
-            <div class="dropdown" style="margin-left: auto;padding: 5px;" >
-              <button type="button" class="btn btn-link dropdown-toggle btn-icon" data-toggle="dropdown">
-                <i class="tim-icons icon-settings-gear-63"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#pablo">
-                  <mat-icon>input</mat-icon>
-                  <span style="vertical-align: super;">
-                    Adicionar
-                  </span>
-                </a>
-                <a class="dropdown-item" href="#pablo">
-                  <mat-icon>cloud_download</mat-icon>
-                  <span style="vertical-align: super;">
-                    Download
-                  </span>
-                </a>
-              </div>
-            </div>
-         
+        <div class="row" style="text-align: center;display: block!important;">
+            <h2 class="card-title title d-inline">Usuários</h2>
         </div>
+        <div class="row">
+          <!-- <h5 class="card-category">Lista Completa</h5> -->
+          <h2 class="card-title title d-inline" style="padding-left: 15px;" >Usuários</h2>
+          <div class="dropdown" style="margin-left: auto;padding: 5px;" >
+            <button type="button" class="btn btn-link dropdown-toggle btn-icon" data-toggle="dropdown">
+              <i class="tim-icons icon-settings-gear-63"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="#pablo">
+                <mat-icon>input</mat-icon>
+                <span style="vertical-align: super;">
+                  Adicionar
+                </span>
+              </a>
+              <a class="dropdown-item" href="#pablo">
+                <mat-icon>cloud_download</mat-icon>
+                <span style="vertical-align: super;">
+                  Download
+                </span>
+              </a>
+            </div>
+          </div>
+       
+      </div>
       </div>
       <div class="card-body">
         <!-- <div class="table-responsive"> -->
           <table mat-table [dataSource]="dataSource" class="table tablesorter " style="width: 100%;" *ngIf="usuariosok; else loading">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="Selecionar">
+              <th mat-header-cell> Selecionar: </th>
+              <td mat-cell> teste </td>
+            </ng-container>
 
             <!-- Position Column -->
             <ng-container matColumnDef="id">

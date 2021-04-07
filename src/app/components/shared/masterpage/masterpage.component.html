@@ -5,11 +5,11 @@
     -->
     <div class="sidebar-wrapper">
       <div class="logo">
-        <a href="javascript:void(0)" class="simple-text logo-mini">
+        <!-- <a href="javascript:void(0)" class="simple-text logo-mini">
           LU
-        </a>
-        <a href="javascript:void(0)" class="simple-text logo-normal">
-          Ferramenta
+        </a> -->
+        <a href="javascript:void(0)" class="simple-text logo-normal" style="text-align: center;">
+          Menu de Acesso
         </a>
       </div>
       <ul class="nav">
@@ -17,6 +17,12 @@
           <a href="/dashboard">
             <i class="tim-icons icon-chart-pie-36"></i>
             <p>Dashboard</p>
+          </a>
+        </li>
+        <li>
+          <a href="/usuarios">
+            <i class="tim-icons icon-single-02"></i>
+            <p>Usuários</p>
           </a>
         </li>
         <li>
@@ -82,7 +88,7 @@
               <span class="navbar-toggler-bar bar3"></span>
             </button>
           </div>
-          <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
+          <a class="navbar-brand" href="javascript:void(0)">Nome da Ferramenta</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
           aria-expanded="false" aria-label="Toggle navigation">
@@ -92,13 +98,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navigation">
           <ul class="navbar-nav ml-auto">
-            <li class="search-bar input-group">
+            <!-- <li class="search-bar input-group">
               <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i
                   class="tim-icons icon-zoom-split"></i>
                 <span class="d-lg-none d-md-block">Search</span>
               </button>
-            </li>
-            <li class="dropdown nav-item">
+            </li> -->
+            <!-- <li class="dropdown nav-item">
               <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
                 <div class="notification d-none d-lg-block d-xl-block"></div>
                 <i class="tim-icons icon-sound-wave"></i>
@@ -117,15 +123,19 @@
                     notification</a></li>
                 <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Another one</a></li>
               </ul>
+            </li> -->
+            <li style="padding-top: 15px;">
+              <span>Bem vindo, {{cookieNome}}</span>
             </li>
-            <li class="dropdown nav-item">
+            
+            <!-- <li class="dropdown nav-item">
               <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                 <div class="photo">
                   <img src="assets/img/anime3.png" alt="Profile Photo">
                 </div>
                 <b class="caret d-none d-lg-block d-xl-block"></b>
                 <p class="d-lg-none">
-                  Log out
+                  Bem vindo, {{cookieNome}}
                 </p>
               </a>
               <ul class="dropdown-menu dropdown-navbar">
@@ -134,7 +144,8 @@
                 <li class="dropdown-divider"></li>
                 <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Log out</a></li>
               </ul>
-            </li>
+            </li> -->
+
             <li class="separator d-lg-none"></li>
           </ul>
         </div>

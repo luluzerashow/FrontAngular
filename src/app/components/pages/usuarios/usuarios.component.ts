@@ -12,8 +12,10 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
   templateUrl: './usuarios.component.html',
   styleUrls: ['./usuarios.component.css']
 })
-export class UsuariosComponent implements OnInit, AfterViewInit {
 
+
+export class UsuariosComponent implements OnInit, AfterViewInit {
+ 
   usuariosok: boolean = false;
 
   displayedColumns: string[] = ['id', 'User', 'Nome', 'PerfilId', 'Perfil'];
@@ -22,13 +24,15 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private usuariosservice: UsuarioService) { }
+    private usuariosservice: UsuarioService
+    ) { }
 
     ngAfterViewInit() {
       this.dataSource.paginator = this.paginator;
     }
 
   ngOnInit() {
+    //chamando serviço de lista usuarios
     this.usuariosservice.list().subscribe(
       (usuariosretorno: UsuariosInterface[]) => {
         var data = usuariosretorno;
