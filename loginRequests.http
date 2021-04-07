@@ -1,0 +1,28 @@
+GET http://localhost:3000/usuarios
+
+###
+
+GET http://localhost:3000/login/1
+
+###
+
+POST http://localhost:3000/login HTTP/1.1
+content-type: application/json
+
+{
+    "user": "lala",
+    "password": "1dwadwa4ww"
+}
+
+###
+
+PUT http://localhost:3000/login/2 HTTP/1.1
+content-type: application/json
+
+{
+    "user": "laladwdwdw",
+    "password": "1234ww"
+}
+
+###
+DELETE http://localhost:3000/login/2

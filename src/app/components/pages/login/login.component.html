@@ -1,0 +1,26 @@
+<div class="main-div">
+    <mat-card class="example-card font-icon-detail">
+        <mat-card-header style="display: inline-grid;">
+            <mat-card-title>Login</mat-card-title>
+            <mat-card-subtitle>Insira os dados para acessar.</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field appearance="fill">
+                <mat-label>Usuário</mat-label>
+                <input id="TxtUser" #txtuser matInput placeholder="Insira seu Usuário">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Senha</mat-label>
+                <input id="TxtPassword" #txtpassword matInput [type]="hide ? 'password' : 'text'" placeholder="Insira sua Senha">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-footer style="margin: 5px;">
+            <!-- <button class="btn btn-primary btn-block"onclick="funcoes.showNotification('success','top','center',TxtUser.value)">Entrar</button> -->
+            <button class="btn btn-primary btn-block" (click)= "Logar(txtuser.value)">Entrar</button>
+        </mat-card-footer>
+    </mat-card>
+</div>

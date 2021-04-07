@@ -1,0 +1,5 @@
+<h1 mat-dialog-title style="color: #32325d;">{{data.Title}}</h1>
+<div mat-dialog-content>{{data.Description}}</div>
+<div mat-dialog-actions *ngIf="data.ButtonClose">
+  <button mat-button mat-dialog-close>Fechar</button>
+</div>

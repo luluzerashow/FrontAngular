@@ -1,0 +1,31 @@
+{
+  "usuarios": [
+    {
+      "User": "2uluzao",
+      "Nome": "2uiz Fernando",
+      "PerfilId": 2,
+      "PerfilNome": "Admin",
+      "id": 4,
+      "DataCriacao": "2021-03-30T19:06:51.7366667",
+      "DataAtualizacao": "2021-03-30T19:06:51.7366667"
+    },
+    {
+      "User": "4uluzao",
+      "Nome": "4uiz Fernando",
+      "PerfilId": 2,
+      "PerfilNome": "Admin",
+      "id": 6,
+      "DataCriacao": "2021-03-30T19:07:08.6066667",
+      "DataAtualizacao": "2021-03-30T19:07:08.6066667"
+    },
+    {
+      "User": "5uluzao",
+      "Nome": "5uiz Fernando",
+      "PerfilId": 2,
+      "PerfilNome": "Admin",
+      "id": 7,
+      "DataCriacao": "2021-03-30T19:07:15.68",
+      "DataAtualizacao": "2021-03-30T19:07:15.68"
+    }
+  ]
+}
