@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
 // ta reclamando mas taa funcionando nao entendi sempre Cookie Service
 export class LoginComponent implements OnInit {
   hide = true;
-
+  cookieExists: boolean;
   userresult: boolean;
 
   loginusuarios$: Observable<LoginInterface[]>;
@@ -29,30 +29,29 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.cookieExists = this.cookie.check('UsuarioCookie');
+    if(this.cookieExists){
+      this.cookie.delete('UsuarioCookie')
+    }
+
   }
 
-  CriarCoockie(user){
-    this.loginservice.criarcookie(user).subscribe(loginusuarios =>{
-       
-      var cookie = 'Id-' + loginusuarios[0].id 
-                  + '-User-' + loginusuarios[0].User 
-                  + '-Nome-' + loginusuarios[0].Nome
-                  + '-PerfilId-' + loginusuarios[0].PerfilId
-                  + '-PerfilNome-' + loginusuarios[0].PerfilNome;
-       //Criando cookie
-       this.cookie.set('UsuarioCookie',cookie,1)
-   
-    }, err =>{
-      console.log('Erro', err);
-    });
-  }
-
-  Logar(user) {
+  Logar(user: string) {
     this.loginservice.logaruser(user).subscribe(userresult =>{
       if(userresult){
 
-        this.CriarCoockie(user);
-
+        this.loginservice.criarcookie(user).subscribe(loginusuarios =>{
+          var cookie = 'Id-' + loginusuarios[0].id 
+                      + '-User-' + loginusuarios[0].User 
+                      + '-Nome-' + loginusuarios[0].Nome
+                      + '-PerfilId-' + loginusuarios[0].PerfilId
+                      + '-PerfilNome-' + loginusuarios[0].PerfilNome;
+           //Criando cookie
+           this.cookie.set('UsuarioCookie',cookie,10)
+       
+        }, err =>{
+          console.log('Erro', err);
+        });
         //Navegando para outra pagina
         var url = location.href;
         window.location.href = url +  "dashboard";

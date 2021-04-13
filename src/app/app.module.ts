@@ -7,7 +7,6 @@ import { DashboardComponent } from './components/pages/dashboard/dashboard.compo
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { ContatoComponent } from './components/pages/contato/contato.component';
 import { LoginComponent } from './components/pages/login/login.component';
-import { UsuariosComponent } from './components/pages/usuarios/usuarios.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -44,9 +43,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogExampleComponent } from './components/shared/dialog-example/dialog-example.component';
 import { CookieService } from 'ngx-cookie-service';
-
-
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UsuarioscreateComponent } from './components/pages/usuarios/usuarioscreate/usuarioscreate.component';
+import { UsuariosindexComponent } from './components/pages/usuarios/usuariosindex/usuariosindex.component';
+import { UsuarioseditComponent } from './components/pages/usuarios/usuariosedit/usuariosedit.component';
 
 @NgModule({
   declarations: [
@@ -56,12 +57,16 @@ import { CookieService } from 'ngx-cookie-service';
     FooterComponent,
     ContatoComponent,
     LoginComponent,
-    UsuariosComponent,
-    DialogExampleComponent
+    UsuariosindexComponent,
+    DialogExampleComponent,
+    UsuarioscreateComponent,
+    UsuarioseditComponent
 
   ],
   entryComponents: [
-    DialogExampleComponent
+    DialogExampleComponent,
+    UsuarioscreateComponent,
+    UsuarioseditComponent
   ],
   imports: [
     HttpClientModule,
@@ -99,7 +104,9 @@ import { CookieService } from 'ngx-cookie-service';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgbModule,
+    ReactiveFormsModule
   ],
   exports: [
     MatButtonModule,
@@ -118,6 +125,7 @@ import { CookieService } from 'ngx-cookie-service';
     MatTooltipModule,
     MatTableModule,
     MatPaginatorModule,
+    ReactiveFormsModule
   ],
   providers: [MatDatepickerModule, CookieService],
   bootstrap: [AppComponent]

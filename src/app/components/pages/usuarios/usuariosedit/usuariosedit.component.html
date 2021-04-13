@@ -1,0 +1,50 @@
+<h1 mat-dialog-title style="color: #32325d;">Editar Usuário</h1>
+<div mat-dialog-content>Edite os campos abaixo.</div>
+
+<div style="background-color: crimson!important;" *ngIf="mostraralert" class="alert alert-danger" role="alert">
+  Por favor verifique os campos obrigatórios!
+</div>
+<form [formGroup]="usuarioform" style="width: 100%;">
+  <div class="example-container">
+    <div class="row" style="margin: 5px!important;">
+      <mat-form-field appearance="legacy" style="margin: 5px!important;;width: 100%;">
+        <mat-label>User:</mat-label>
+        <input #User formControlName="User" matInput placeholder="User" required>
+        <mat-hint>Digite um username</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="row" style="margin: 5px!important;">
+      <mat-form-field appearance="legacy" style="margin: 5px!important;width: 100%;">
+        <mat-label>Nome:</mat-label>
+        <input #Nome formControlName="Nome" matInput placeholder="Nome" required>
+        <mat-hint>Digite o nome do usuário</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="row" style="margin: 5px!important;">
+
+      <mat-form-field appearance="legacy" style="margin: 5px!important;width: 100%;text-align: center;">
+        <mat-label>Escolha o Perfil:</mat-label>
+        <mat-select #Perfil formControlName="Perfil" name="Perfil" required>
+          <mat-option *ngFor="let perfil of dataperfilcombo" [value]="perfil.Value">
+            {{perfil.ViewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-hint>Escolha o perfil do usuário</mat-hint>
+      </mat-form-field>
+
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px!important;">
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close>Fechar</button>
+    </div>
+    <div mat-dialog-actions style="margin-left: 65%;">
+      <button mat-button mat-dialog-content [disabled]="!usuarioform.valid"
+        (click)="Salvar(User.value, Nome.value, Perfil.value)">Salvar</button>
+    </div>
+  </div>
+
+</form>

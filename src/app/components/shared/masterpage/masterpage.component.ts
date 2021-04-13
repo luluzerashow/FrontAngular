@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-masterpage',
@@ -28,11 +29,9 @@ export class MasterpageComponent implements OnInit {
        this.cookieNome = dadoscookie[5];
        this.cookiePerfilId = dadoscookie[7];
        this.cookiePerfil = dadoscookie[9];
-       //alert(dadoscookie[5]);
      }else{
        //Navegando para outra pagina
-       var url = location.href;
-       window.location.href = url +  "login";
+       window.location.href = 'http://localhost:4200/login';
      }
   }
 
