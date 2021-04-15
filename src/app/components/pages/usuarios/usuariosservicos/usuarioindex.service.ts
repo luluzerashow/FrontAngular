@@ -5,6 +5,10 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { UsuariosInterface } from '../usuariosinterfaces/usuariosInterface';
 import { PerfilComboInterface } from '../usuariosinterfaces/perfilcomboInterface';
+import { Workbook} from 'exceljs';
+import * as fs from 'file-saver';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +22,9 @@ export class UsuarioindexService {
     return this.http.get<UsuariosInterface[]>(this.APIGetAll);
   }
 
+  download(){
+    
+  }
 
 }
 

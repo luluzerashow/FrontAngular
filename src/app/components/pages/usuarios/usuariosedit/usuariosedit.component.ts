@@ -5,7 +5,9 @@ import { PerfilComboInterface } from '../usuariosinterfaces/perfilcomboInterface
 import { MatDialog } from '@angular/material/dialog';
 import { DialogExampleComponent } from '../../../shared/dialog-example/dialog-example.component';
 import { UsuariosperfisService } from '../usuariosservicos/usuariosperfis.service';
+import { UsuarioseditService } from '../usuariosservicos/usuariosedit.service';
 import { FormControl } from '@angular/forms';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-usuariosedit',
@@ -19,25 +21,26 @@ export class UsuarioseditComponent implements OnInit {
   selectedValue: string;
   dataperfilcombo: PerfilComboInterface[];
   public usuarioform: FormGroup;
-  user = new FormControl('');
-  senha: string;
-  nome: string;
-  perfil: number;
+
+  id: number = this.data.Id;
+  user: string = this.data.User;
+  nome: string = this.data.Nome;
+  perfil: number = this.data.Perfil;
+
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private usuariosperfisservice: UsuariosperfisService,
+    private usuarioseditService : UsuarioseditService,
     private fb: FormBuilder,
     public dialog: MatDialog
   ) {
     this.criarform();
-    this.user.setValue('Nancy');
-    //this.usuarioform.setValue({'User':this.data.user, 'Nome': this.data.user, 'Perfil': this.data.user})
   }
   criarform() {
     this.usuarioform = this.fb.group({
-      User: ['', Validators.required],
-      Nome: ['', Validators.required],
-      Perfil: ['', Validators.required]
+      User: [this.user, Validators.required],
+      Nome: [this.nome, Validators.required],
+      Perfil: [this.perfil, Validators.required]
     });
   }
 
@@ -53,28 +56,26 @@ export class UsuarioseditComponent implements OnInit {
   }
 
   Salvar(User: string, Nome: string, Perfilid: number) {
-    // if (User == '' || Senha == '' || Nome == '' || Perfilid == null) {
-    //   this.mostraralert = true;
-    // } else {
-    //   // criar metodo save
-    //   this.usuarioscreateservice.Salvar(User, Senha, Nome, Perfilid).subscribe(userresult => {
-    //     if (userresult) {
-    //       //alert("Usuario não cadastrado");
-    //       var title = 'Usuário Cadastrado com sucesso!';
-    //       var description = 'Você cadastrou o usuário: ' + User;
-    //       var buttonclose = true;
-    //       this.dialog.open(DialogExampleComponent, { data: { Title: title, Description: description, ButtonClose: buttonclose } });
-    //     } else {
-    //       //alert("Usuario não cadastrado");
-    //       var title = 'Erro ao cadastrar usuário';
-    //       var description = 'Se o erro persistir contate o desenvolvedor!' + User;
-    //       var buttonclose = true;
-    //       this.dialog.open(DialogExampleComponent, { data: { Title: title, Description: description, ButtonClose: buttonclose } });
-    //     }
-    //   }, err => {
-    //     console.log('Erro', err);
-    //   });
-    // }
+    if (User == '' || Nome == '' || Perfilid == null) {
+      this.mostraralert = true;
+    } else {
+      this.usuarioseditService.Salvar(this.id, User, Nome, Perfilid).subscribe(userresult => {
+            if (userresult) {
+              //alert("Usuario não cadastrado");
+              var title = 'Usuário editado com sucesso!';
+              var description = 'Você editou o usuário: ' + User;
+              var buttonclose = true;
+              this.dialog.open(DialogExampleComponent, { data: { Title: title, Description: description, ButtonClose: buttonclose } });
+            } else {
+              //alert("Usuario não cadastrado");
+              var title = 'Erro ao editar usuário';
+              var description = 'Se o erro persistir contate o desenvolvedor!';
+              var buttonclose = true;
+              this.dialog.open(DialogExampleComponent, { data: { Title: title, Description: description, ButtonClose: buttonclose } });
+            }
+          }, err => {
+            console.log('Erro', err);
+          });
+    }
   }
-
 }

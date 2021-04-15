@@ -8,7 +8,7 @@
 
         <div class="row" style="margin: 5px!important;">
           <!-- <h5 class="card-category">Lista Completa</h5> -->
-          <button mat-raised-button (click)= "Adicionar()">
+          <button mat-raised-button (click)="Adicionar()">
             <mat-icon>add</mat-icon>
             Adicionar
           </button>
@@ -17,12 +17,12 @@
               <i class="tim-icons icon-settings-gear-63"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#pablo">
+              <button class="dropdown-item" (click)="Download()">
                 <mat-icon>save_alt</mat-icon>
                 <span style="vertical-align: super;">
                   Download
                 </span>
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -33,97 +33,82 @@
 
         <mat-form-field style="margin: 5px;">
           <mat-label style="color: white;font-size: 18px;">Filtrar:</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Digite Aqui!" #input style="color: white!important;">
+          <input matInput (keyup)="applyFilter($event)" placeholder="Digite Aqui!" #input
+            style="color: white!important;">
         </mat-form-field>
 
-        <!-- <div class="table-responsive"> -->
-        <table mat-table [dataSource]="dataSource" class="table tablesorter " style="width: 100%;"
-          *ngIf="usuariosok; else loading">
-
-          <!-- Checkbox Column -->
+        <mat-table [dataSource]="dataSource" matSort class="table tablesorter" *ngIf="usuariosok; else loading">
           <ng-container matColumnDef="select">
-            <th mat-header-cell *matHeaderCellDef>
+            <mat-header-cell *matHeaderCellDef>
               <mat-checkbox (change)="$event ? masterToggle() : null"
                 [checked]="selection.hasValue() && isAllSelected()"
                 [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
               </mat-checkbox>
-            </th>
-            <td mat-cell *matCellDef="let row">
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
               <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
                 [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
               </mat-checkbox>
-            </td>
+            </mat-cell>
           </ng-container>
 
           <!-- Position Column -->
           <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Id: </th>
-            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            <mat-header-cell *matHeaderCellDef style="color: white!important;"> Id: </mat-header-cell>
+            <mat-cell *matCellDef="let element" style="color: white!important;"> {{element.id}} </mat-cell>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="User">
-            <th mat-header-cell *matHeaderCellDef> User: </th>
-            <td mat-cell *matCellDef="let element"> {{element.User}} </td>
+            <mat-header-cell *matHeaderCellDef style="color: white!important;"> User: </mat-header-cell>
+            <mat-cell *matCellDef="let element" style="color: white!important;"> {{element.User}}</mat-cell>
           </ng-container>
 
           <!-- Weight Column -->
           <ng-container matColumnDef="Nome">
-            <th mat-header-cell *matHeaderCellDef> Nome: </th>
-            <td mat-cell *matCellDef="let element"> {{element.Nome}} </td>
+            <mat-header-cell *matHeaderCellDef style="color: white!important;"> Nome: </mat-header-cell>
+            <mat-cell *matCellDef="let element" style="color: white!important;"> {{element.Nome}} </mat-cell>
           </ng-container>
 
           <!-- Symbol Column -->
           <ng-container matColumnDef="PerfilId">
-            <th mat-header-cell *matHeaderCellDef> PerfilId: </th>
-            <td mat-cell *matCellDef="let element"> {{element.PerfilId}} </td>
+            <mat-header-cell *matHeaderCellDef style="color: white!important;"> PerfilId: </mat-header-cell>
+            <mat-cell *matCellDef="let element" style="color: white!important;"> {{element.PerfilId}} </mat-cell>
           </ng-container>
 
           <!-- Symbol Column -->
           <ng-container matColumnDef="Perfil">
-            <th mat-header-cell *matHeaderCellDef> Perfil: </th>
-            <td mat-cell *matCellDef="let element"> {{element.PerfilNome}} </td>
+            <mat-header-cell *matHeaderCellDef style="color: white!important;"> Perfil: </mat-header-cell>
+            <mat-cell *matCellDef="let element" style="color: white!important;"> {{element.PerfilNome}} </mat-cell>
           </ng-container>
 
           <!-- Symbol Column -->
           <ng-container matColumnDef="Ações">
-            <th mat-header-cell *matHeaderCellDef> Ações: </th>
-            <td mat-cell *matCellDef="let element"> 
-              <button id="{{element.id}}" style="margin: 5px;color:white;background-color: #fe5800;" mat-mini-fab aria-label="Deletar" (click)= "Deletar(element.id)">
+            <mat-header-cell *matHeaderCellDef style="color: white!important;"> Ações: </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button id="{{element.id}}" style="margin: 5px;color:white;background-color: #fe5800;" mat-mini-fab
+                aria-label="Deletar" (click)="Deletar(element.id)">
                 <mat-icon>delete</mat-icon>
               </button>
-              <button id="{{element.id}}" style="margin: 5px;color:white;background-color: #fe5800;" mat-mini-fab aria-label="Editar" (click)= "Editar(element.User, element.Nome, element.PerfilId)">
+              <button id="{{element.id}}" style="margin: 5px;color:white;background-color: #fe5800;" mat-mini-fab
+                aria-label="Editar" (click)="Editar(element.id, element.User, element.Nome, element.PerfilId)">
                 <mat-icon>edit</mat-icon>
               </button>
-            </td>
+            </mat-cell>
           </ng-container>
 
-          <!-- <ng-container matColumnDef="Data Criação">
-              <th mat-header-cell *matHeaderCellDef> Data Criação: </th>
-              <td mat-cell *matCellDef="let element"> {{element.DataCriacao}} </td>
-            </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row (click)="logData(row)" *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
 
-            <ng-container matColumnDef="Data Atualização">
-              <th mat-header-cell *matHeaderCellDef> Data Atualização: </th>
-              <td mat-cell *matCellDef="let element"> {{element.DataAtualizacao} </td>
-            </ng-container> -->
+        
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-              (click)="selection.toggle(row)">
-          </tr>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+          <ng-template #loading>
+            <span>Carregando Lista...</span>
+          </ng-template>
+        </mat-paginator>
 
-          <!-- Row shown when there is no matching data. -->
-          <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-          </tr>
-        </table>
-
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-        <ng-template #loading>
-          <span>Carregando Lista...</span>
-        </ng-template>
-        <!-- </div> -->
       </div>
     </div>
   </div>
