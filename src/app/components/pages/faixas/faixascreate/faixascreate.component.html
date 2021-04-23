@@ -1,0 +1,38 @@
+<h1 mat-dialog-title style="color: #32325d;">Criar faixa</h1>
+<div mat-dialog-content>Preencha os campos abaixo.</div>
+
+<div style="background-color: crimson!important;" *ngIf="mostraralert" class="alert alert-danger" role="alert">
+    Por favor verifique os campos obrigatórios!
+</div>
+<form [formGroup]="faixasform">
+    <div class="example-container">
+
+        <div class="row" style="margin: 5px!important;">
+            <mat-form-field appearance="legacy" style="margin: 5px!important;width: 100%;">
+                <mat-label>Cor:</mat-label>
+                <input #cor formControlName="cor" matInput placeholder="cor" required>
+                <mat-hint>Digite a cor da faixa</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="row" style="margin: 5px!important;">
+            <mat-form-field appearance="legacy" style="margin: 5px!important;width: 100%;">
+                <mat-label>Aulas meta:</mat-label>
+                <input #Aulas_Meta formControlName="aulas_meta" matInput placeholder="aulas_meta" required>
+                <mat-hint>Digite a quantidade de aulas meta da faixa</mat-hint>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+    <div class="row" style="margin: 5px!important;">
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close>Fechar</button>
+        </div>
+        <div mat-dialog-actions style="margin-left: 65%;">
+            <button mat-button mat-dialog-content [disabled]="!faixasform.valid"
+                (click)="Salvar(cor.value, Aulas_Meta.value)">Salvar</button>
+        </div>
+    </div>
+
+</form>

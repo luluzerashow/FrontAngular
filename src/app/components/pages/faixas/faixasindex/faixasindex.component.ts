@@ -1,34 +1,30 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UsuariosInterface } from '../usuariosinterfaces/usuariosInterface';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogExampleComponent } from '../../../shared/dialog-example/dialog-example.component';
-import { UsuarioseditComponent } from '../usuariosedit/usuariosedit.component';
-import { UsuarioscreateComponent } from '../usuarioscreate/usuarioscreate.component';
-import { UsuarioindexService } from '../usuariosservicos/usuarioindex.service';
-import { UsuariosdeleteService } from '../usuariosservicos/usuariosdelete.service';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { MatSort } from '@angular/material/sort';
-
+import { Faixasinterface } from '../faixasinterfaces/faixasinterface';
+import { FaixaindexService } from '../faixasservice/faixaindex.service';
+import { FaixadeleteService } from '../faixasservice/faixadelete.service';
+import { FaixascreateComponent } from '../faixascreate/faixascreate.component';
+import { FaixaseditComponent } from '../faixasedit/faixasedit.component';
 
 @Component({
-  selector: 'app-usuariosindex',
-  templateUrl: './usuariosindex.component.html',
-  styleUrls: ['./usuariosindex.component.css']
+  selector: 'app-faixasindex',
+  templateUrl: './faixasindex.component.html',
+  styleUrls: ['./faixasindex.component.css']
 })
+export class FaixasindexComponent implements OnInit {
 
+  faixassok: boolean = false;
 
-export class UsuariosindexComponent implements OnInit {
-
-
-  usuariosok: boolean = false;
-
-  displayedColumns: string[] = ['select', 'id', 'User', 'Nome', 'PerfilId', 'Perfil', 'Ações'];
-  dataSource = new MatTableDataSource<UsuariosInterface>();
-  selection = new SelectionModel<UsuariosInterface>(true, []);
+  displayedColumns: string[] = ['id', 'Cor', 'Aula Meta', 'Ações'];
+  dataSource = new MatTableDataSource<Faixasinterface>();
+  selection = new SelectionModel<Faixasinterface>(true, []);
 
   dataexcel: any[];
 
@@ -37,17 +33,14 @@ export class UsuariosindexComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private usuariosservice: UsuarioindexService,
-    private usuariosdelete: UsuariosdeleteService,
+    private faixaservice: FaixaindexService,
+    private faixadelete: FaixadeleteService,
     public dialog: MatDialog,
   ) { }
 
-
   ngOnInit() {
-    this.ListarUsuarios();
+    this.ListarFaixas();
   }
-
-
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -78,24 +71,21 @@ export class UsuariosindexComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: UsuariosInterface): string {
+  checkboxLabel(row?: Faixasinterface): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.Id + 1}`;
   }
 
-
-
-
-  ListarUsuarios() {
+  ListarFaixas() {
     //chamando serviço de lista usuarios
-    this.usuariosservice.list().subscribe(
-      (usuariosretorno: UsuariosInterface[]) => {
+    this.faixaservice.list().subscribe(
+      (usuariosretorno: Faixasinterface[]) => {
         //prepara dados pro excel
         this.dataexcel = usuariosretorno;
-        this.dataSource = new MatTableDataSource<UsuariosInterface>(this.dataexcel);
-        this.usuariosok = true;
+        this.dataSource = new MatTableDataSource<Faixasinterface>(this.dataexcel);
+        this.faixassok = true;
     
         //adicionando a paginação
         this.dataSource.paginator = this.paginator;
@@ -106,25 +96,9 @@ export class UsuariosindexComponent implements OnInit {
       }
     );
   }
-
   
-
-  Adicionar() {
-    const dialogconfig = new MatDialogConfig();
-    //dialogconfig.disableClose = true;
-    dialogconfig.autoFocus = true;
-    dialogconfig.width = "30%";
-    this.dialog.open(UsuarioscreateComponent, dialogconfig);
-  }
-
-  Editar(id: number, user: string, nome: string, perfil: number) {
-    this.dialog.open(UsuarioseditComponent, {
-      width: '30%', autoFocus: false, disableClose: true, data: { Id: id, User: user, Nome: nome, Perfil: perfil }
-    });
-  }
-
   Deletar(id: number) {
-    this.usuariosdelete.Deletar(id).subscribe(userresult => {
+    this.faixadelete.Deletar(id).subscribe(userresult => {
       if (userresult) {
         var title = 'Resgistro Excluido com sucesso!';
         var description = 'Esse registro foi excluído!';
@@ -141,14 +115,29 @@ export class UsuariosindexComponent implements OnInit {
     });
   }
 
+  Adicionar() {
+    const dialogconfig = new MatDialogConfig();
+    //dialogconfig.disableClose = true;
+    dialogconfig.autoFocus = true;
+    dialogconfig.width = "30%";
+    this.dialog.open(FaixascreateComponent, dialogconfig);
+  }
+
+  Editar(id: number, cor: string, aula_meta: string) {
+    this.dialog.open(FaixaseditComponent, {
+      width: '30%', autoFocus: false, disableClose: true, data: { Id: id, Cor: cor, Aula_Meta: aula_meta }
+    });
+  }
+
+
   Download() {
     //create new excel work book
     let workbook = new Workbook();
 
     //add name to sheet
-    let worksheet = workbook.addWorksheet("Usuarios");
+    let worksheet = workbook.addWorksheet("Faixas");
     //add column name
-    let header = ['id', 'User', 'Nome', 'PerfilId', 'Perfil'];
+    let header = ['id', 'Cor', 'Aula_Meta'];
     let headerRow = worksheet.addRow(header);
     for (let x1 of this.dataexcel) {
       let x2 = Object.keys(x1);
@@ -159,7 +148,7 @@ export class UsuariosindexComponent implements OnInit {
       worksheet.addRow(temp)
     }
     //set downloadable file name
-    let fname = "Lista de Usuarios - "
+    let fname = "Lista de Faixas - "
 
     //add data and file name and download
     workbook.xlsx.writeBuffer().then((data) => {
@@ -167,4 +156,7 @@ export class UsuariosindexComponent implements OnInit {
       fs.saveAs(blob, fname + '-' + new Date().valueOf() + '.xlsx');
     });
   }
+
+
 }
+

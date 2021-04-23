@@ -1,34 +1,31 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UsuariosInterface } from '../usuariosinterfaces/usuariosInterface';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogExampleComponent } from '../../../shared/dialog-example/dialog-example.component';
-import { UsuarioseditComponent } from '../usuariosedit/usuariosedit.component';
-import { UsuarioscreateComponent } from '../usuarioscreate/usuarioscreate.component';
-import { UsuarioindexService } from '../usuariosservicos/usuarioindex.service';
-import { UsuariosdeleteService } from '../usuariosservicos/usuariosdelete.service';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { MatSort } from '@angular/material/sort';
-
+import { Perfilinterface } from '../perfisinterfaces/perfilinterface';
+import { PerfilindexService } from '../perfisservice/perfilindex.service';
+import { PerfildeleteService } from '../perfisservice/perfildelete.service';
+import { PerfiscreateComponent } from '../perfiscreate/perfiscreate.component';
+import { PerfiseditComponent } from '../perfisedit/perfisedit.component';
 
 @Component({
-  selector: 'app-usuariosindex',
-  templateUrl: './usuariosindex.component.html',
-  styleUrls: ['./usuariosindex.component.css']
+  selector: 'app-perfisindex',
+  templateUrl: './perfisindex.component.html',
+  styleUrls: ['./perfisindex.component.css']
 })
 
-
-export class UsuariosindexComponent implements OnInit {
-
+export class PerfisindexComponent implements OnInit {
 
   usuariosok: boolean = false;
 
-  displayedColumns: string[] = ['select', 'id', 'User', 'Nome', 'PerfilId', 'Perfil', 'Ações'];
-  dataSource = new MatTableDataSource<UsuariosInterface>();
-  selection = new SelectionModel<UsuariosInterface>(true, []);
+  displayedColumns: string[] = ['id', 'Nome', 'Descricao', 'Ações'];
+  dataSource = new MatTableDataSource<Perfilinterface>();
+  selection = new SelectionModel<Perfilinterface>(true, []);
 
   dataexcel: any[];
 
@@ -37,17 +34,14 @@ export class UsuariosindexComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private usuariosservice: UsuarioindexService,
-    private usuariosdelete: UsuariosdeleteService,
+    private perfilservice: PerfilindexService,
+    private perfildelete: PerfildeleteService,
     public dialog: MatDialog,
   ) { }
 
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.ListarUsuarios();
   }
-
-
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -78,23 +72,20 @@ export class UsuariosindexComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: UsuariosInterface): string {
+  checkboxLabel(row?: Perfilinterface): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-
-
-
   ListarUsuarios() {
     //chamando serviço de lista usuarios
-    this.usuariosservice.list().subscribe(
-      (usuariosretorno: UsuariosInterface[]) => {
+    this.perfilservice.list().subscribe(
+      (usuariosretorno: Perfilinterface[]) => {
         //prepara dados pro excel
         this.dataexcel = usuariosretorno;
-        this.dataSource = new MatTableDataSource<UsuariosInterface>(this.dataexcel);
+        this.dataSource = new MatTableDataSource<Perfilinterface>(this.dataexcel);
         this.usuariosok = true;
     
         //adicionando a paginação
@@ -107,24 +98,8 @@ export class UsuariosindexComponent implements OnInit {
     );
   }
 
-  
-
-  Adicionar() {
-    const dialogconfig = new MatDialogConfig();
-    //dialogconfig.disableClose = true;
-    dialogconfig.autoFocus = true;
-    dialogconfig.width = "30%";
-    this.dialog.open(UsuarioscreateComponent, dialogconfig);
-  }
-
-  Editar(id: number, user: string, nome: string, perfil: number) {
-    this.dialog.open(UsuarioseditComponent, {
-      width: '30%', autoFocus: false, disableClose: true, data: { Id: id, User: user, Nome: nome, Perfil: perfil }
-    });
-  }
-
   Deletar(id: number) {
-    this.usuariosdelete.Deletar(id).subscribe(userresult => {
+    this.perfildelete.Deletar(id).subscribe(userresult => {
       if (userresult) {
         var title = 'Resgistro Excluido com sucesso!';
         var description = 'Esse registro foi excluído!';
@@ -141,14 +116,29 @@ export class UsuariosindexComponent implements OnInit {
     });
   }
 
+  Adicionar() {
+    const dialogconfig = new MatDialogConfig();
+    //dialogconfig.disableClose = true;
+    dialogconfig.autoFocus = true;
+    dialogconfig.width = "30%";
+    this.dialog.open(PerfiscreateComponent, dialogconfig);
+  }
+
+  Editar(id: number, nome: string, descricao: string) {
+    this.dialog.open(PerfiseditComponent, {
+      width: '30%', autoFocus: false, disableClose: true, data: { Id: id, Nome: nome, Descricao: descricao }
+    });
+  }
+
+
   Download() {
     //create new excel work book
     let workbook = new Workbook();
 
     //add name to sheet
-    let worksheet = workbook.addWorksheet("Usuarios");
+    let worksheet = workbook.addWorksheet("Perfis");
     //add column name
-    let header = ['id', 'User', 'Nome', 'PerfilId', 'Perfil'];
+    let header = ['id', 'Nome', 'Descricao'];
     let headerRow = worksheet.addRow(header);
     for (let x1 of this.dataexcel) {
       let x2 = Object.keys(x1);
@@ -159,7 +149,7 @@ export class UsuariosindexComponent implements OnInit {
       worksheet.addRow(temp)
     }
     //set downloadable file name
-    let fname = "Lista de Usuarios - "
+    let fname = "Lista de Perfis - "
 
     //add data and file name and download
     workbook.xlsx.writeBuffer().then((data) => {
@@ -167,4 +157,6 @@ export class UsuariosindexComponent implements OnInit {
       fs.saveAs(blob, fname + '-' + new Date().valueOf() + '.xlsx');
     });
   }
+
+
 }

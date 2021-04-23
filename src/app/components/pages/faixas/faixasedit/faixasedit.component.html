@@ -1,0 +1,39 @@
+<h1 mat-dialog-title style="color: #32325d;">Editar Faixa</h1>
+<div mat-dialog-content>Edite os campos abaixo.</div>
+
+<div style="background-color: crimson!important;" *ngIf="mostraralert" class="alert alert-danger" role="alert">
+  Por favor verifique os campos obrigatórios!
+</div>
+<form [formGroup]="faixasform" style="width: 100%;">
+  <div class="example-container">
+
+    <div class="row" style="margin: 5px!important;">
+      <mat-form-field appearance="legacy" style="margin: 5px!important;width: 100%;">
+        <mat-label>Nome:</mat-label>
+        <input #Nome formControlName="Nome" matInput placeholder="Nome" required>
+        <mat-hint>Digite a cor da faixa</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="row" style="margin: 5px!important;">
+        <mat-form-field appearance="legacy" style="margin: 5px!important;width: 100%;">
+          <mat-label>Aulas meta:</mat-label>
+          <input #Aulas_meta formControlName="Aulas_Meta" matInput placeholder="Aulas_Meta" required>
+          <mat-hint>Digite qunatidade de aulas meta</mat-hint>
+        </mat-form-field>
+      </div>
+
+    
+  </div>
+
+  <div class="row" style="margin: 5px!important;">
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close>Fechar</button>
+    </div>
+    <div mat-dialog-actions style="margin-left: 65%;">
+      <button mat-button mat-dialog-content [disabled]="!faixasform.valid"
+        (click)="Salvar(Nome.value, Aulas_meta.value)">Salvar</button>
+    </div>
+  </div>
+
+</form>

@@ -86,13 +86,14 @@
           <ng-container matColumnDef="Ações">
             <mat-header-cell *matHeaderCellDef style="color: white!important;"> Ações: </mat-header-cell>
             <mat-cell *matCellDef="let element">
-              <button id="{{element.id}}" style="margin: 5px;color:white;background-color: #fe5800;" mat-mini-fab
-                aria-label="Deletar" (click)="Deletar(element.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
+              
               <button id="{{element.id}}" style="margin: 5px;color:white;background-color: #fe5800;" mat-mini-fab
                 aria-label="Editar" (click)="Editar(element.id, element.User, element.Nome, element.PerfilId)">
                 <mat-icon>edit</mat-icon>
+              </button>
+              <button id="{{element.id}}" style="margin: 5px;color:white;background-color: #fe5800;" mat-mini-fab
+                aria-label="Deletar" (click)="Deletar(element.id)">
+                <mat-icon>delete</mat-icon>
               </button>
             </mat-cell>
           </ng-container>

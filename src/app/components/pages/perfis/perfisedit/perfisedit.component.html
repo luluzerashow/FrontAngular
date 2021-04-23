@@ -1,0 +1,39 @@
+<h1 mat-dialog-title style="color: #32325d;">Editar Perfil</h1>
+<div mat-dialog-content>Edite os campos abaixo.</div>
+
+<div style="background-color: crimson!important;" *ngIf="mostraralert" class="alert alert-danger" role="alert">
+  Por favor verifique os campos obrigatórios!
+</div>
+<form [formGroup]="perfilform" style="width: 100%;">
+  <div class="example-container">
+
+    <div class="row" style="margin: 5px!important;">
+      <mat-form-field appearance="legacy" style="margin: 5px!important;width: 100%;">
+        <mat-label>Nome:</mat-label>
+        <input #Nome formControlName="Nome" matInput placeholder="Nome" required>
+        <mat-hint>Digite o nome do perfil</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="row" style="margin: 5px!important;">
+        <mat-form-field appearance="legacy" style="margin: 5px!important;width: 100%;">
+          <mat-label>Descrição:</mat-label>
+          <input #Descricao formControlName="Descricao" matInput placeholder="Descricao" required>
+          <mat-hint>Digite a descrição do perfil</mat-hint>
+        </mat-form-field>
+      </div>
+
+    
+  </div>
+
+  <div class="row" style="margin: 5px!important;">
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close>Fechar</button>
+    </div>
+    <div mat-dialog-actions style="margin-left: 65%;">
+      <button mat-button mat-dialog-content [disabled]="!perfilform.valid"
+        (click)="Salvar(Nome.value, Descricao.value)">Salvar</button>
+    </div>
+  </div>
+
+</form>

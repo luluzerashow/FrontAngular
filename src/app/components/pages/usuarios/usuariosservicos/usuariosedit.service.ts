@@ -9,13 +9,13 @@ import { PerfilComboInterface } from '../usuariosinterfaces/perfilcomboInterface
 })
 export class UsuarioseditService {
 
-  private readonly APICriarUsuario = `${environment.API}Usuario/EditAsync`;
+  private readonly APIEditUsuario = `${environment.API}Usuario/EditAsync`;
 
   constructor(private http: HttpClient) { }
 
   Salvar(id:number, Usernovo: string, Nomenovo: string, Perfilidnovo: number): Observable<any> {
     var novousuario = { "Id": id, "User": Usernovo, "Nome": Nomenovo, "PerfilId": Perfilidnovo };
-    return this.http.put(this.APICriarUsuario, novousuario);
+    return this.http.put(this.APIEditUsuario, novousuario);
   }
 
 }

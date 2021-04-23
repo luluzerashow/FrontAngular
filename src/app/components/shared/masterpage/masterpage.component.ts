@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 })
 export class MasterpageComponent implements OnInit {
 
+  panelOpenState = false;
+  
   //variaveis de cookie
   cookieExists: boolean;
   cookieId: string;

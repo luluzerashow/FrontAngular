@@ -48,6 +48,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UsuarioscreateComponent } from './components/pages/usuarios/usuarioscreate/usuarioscreate.component';
 import { UsuariosindexComponent } from './components/pages/usuarios/usuariosindex/usuariosindex.component';
 import { UsuarioseditComponent } from './components/pages/usuarios/usuariosedit/usuariosedit.component';
+import { PerfisindexComponent } from './components/pages/perfis/perfisindex/perfisindex.component';
+import { PerfiscreateComponent } from './components/pages/perfis/perfiscreate/perfiscreate.component';
+import { PerfiseditComponent } from './components/pages/perfis/perfisedit/perfisedit.component';
+import { PerfisdeleteComponent } from './components/pages/perfis/perfisdelete/perfisdelete.component';
+import { FaixasindexComponent } from './components/pages/faixas/faixasindex/faixasindex.component';
+import { FaixascreateComponent } from './components/pages/faixas/faixascreate/faixascreate.component';
+import { FaixaseditComponent } from './components/pages/faixas/faixasedit/faixasedit.component';
+import { FaixasdeleteComponent } from './components/pages/faixas/faixasdelete/faixasdelete.component';
 
 @NgModule({
   declarations: [
@@ -60,13 +68,23 @@ import { UsuarioseditComponent } from './components/pages/usuarios/usuariosedit/
     UsuariosindexComponent,
     DialogExampleComponent,
     UsuarioscreateComponent,
-    UsuarioseditComponent
+    UsuarioseditComponent,
+    PerfisindexComponent,
+    PerfiscreateComponent,
+    PerfiseditComponent,
+    PerfisdeleteComponent,
+    FaixasindexComponent,
+    FaixascreateComponent,
+    FaixaseditComponent,
+    FaixasdeleteComponent
 
   ],
   entryComponents: [
     DialogExampleComponent,
     UsuarioscreateComponent,
-    UsuarioseditComponent
+    UsuarioseditComponent,
+    FaixascreateComponent,
+    FaixaseditComponent
   ],
   imports: [
     HttpClientModule,

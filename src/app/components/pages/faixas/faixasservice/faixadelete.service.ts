@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class UsuariosdeleteService {
-  private readonly APIDelete = `${environment.API}Usuario/DeleteByIdAsync/`;
+export class FaixadeleteService {
+
+  private readonly APIDelete = `${environment.API}Faixas/FaixasDeleteByIdAsync/`;
 
   constructor(private http: HttpClient) { }
 

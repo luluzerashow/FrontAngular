@@ -12,8 +12,56 @@
           Menu de Acesso
         </a>
       </div>
-      <ul class="nav">
-        <li class="active ">
+      <mat-accordion> 
+        <mat-expansion-panel class="mat-expansion-panel" (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="mat-expansion-title">
+              Telas
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ul class="nav">
+            <li class="active">
+              <a href="/dashboard">
+                <i class="tim-icons icon-chart-pie-36"></i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+          </ul>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="mat-expansion-panel" (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="mat-expansion-title">
+              Configurações
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ul class="nav">
+            <li class="active">
+              <a href="/usuarios">
+                <i class="tim-icons icon-single-02"></i>
+                <p>Usuários</p>
+              </a>
+            </li>
+            <li class="active">
+              <a href="/perfis">
+                <i class="material-icons">supervised_user_circle</i>
+                <!-- <i class="tim-icons icon-atom"></i> -->
+                Perfis
+              </a>
+            </li>
+            <li class="active">
+              <a href="/faixas">
+                <i class="material-icons">supervised_user_circle</i>
+                <!-- <i class="tim-icons icon-atom"></i> -->
+                Faixas
+              </a>
+            </li>
+          </ul>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <!-- <ul class="nav">
+        <li class="active">
           <a href="/dashboard">
             <i class="tim-icons icon-chart-pie-36"></i>
             <p>Dashboard</p>
@@ -26,9 +74,9 @@
           </a>
         </li>
         <li>
-          <a href="/contato">
+          <a href="/perfis">
             <i class="tim-icons icon-atom"></i>
-            <p>Icons</p>
+            <p>Perfis</p>
           </a>
         </li>
         <li>
@@ -73,7 +121,7 @@
             <p>Upgrade to PRO</p>
           </a>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </div>
   <div class="main-panel">

@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header ">
+          <div class="row" style="text-align: center;display: block!important;">
+            <h2 class="card-title title d-inline">Faixas</h2>
+          </div>
+  
+          <div class="row" style="margin: 5px!important;">
+            <!-- <h5 class="card-category">Lista Completa</h5> -->
+            <button mat-raised-button (click)="Adicionar()">
+              <mat-icon>add</mat-icon>
+              Adicionar
+            </button>
+            <div class="dropdown" style="margin-left: auto;padding: 5px;">
+              <button type="button" class="btn btn-link dropdown-toggle btn-icon" data-toggle="dropdown">
+                <i class="tim-icons icon-settings-gear-63"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                <button class="dropdown-item" (click)="Download()">
+                  <mat-icon>save_alt</mat-icon>
+                  <span style="vertical-align: super;">
+                    Download
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+  
+  
+        </div>
+        <div class="card-body">
+  
+          <mat-form-field style="margin: 5px;">
+            <mat-label style="color: white;font-size: 18px;">Filtrar:</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Digite Aqui!" #input
+              style="color: white!important;">
+          </mat-form-field>
+  
+          <mat-table [dataSource]="dataSource" matSort class="table tablesorter" *ngIf="faixassok; else loading">
+
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                </mat-checkbox>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+  
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef style="color: white!important;"> Id: </mat-header-cell>
+              <mat-cell *matCellDef="let element" style="color: white!important;"> {{element.id}} </mat-cell>
+            </ng-container>
+
+  
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Cor">
+              <mat-header-cell *matHeaderCellDef style="color: white!important;"> Cor: </mat-header-cell>
+              <mat-cell *matCellDef="let element" style="color: white!important;"> {{element.Nome}} </mat-cell>
+            </ng-container>
+  
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Aula Meta">
+              <mat-header-cell *matHeaderCellDef style="color: white!important;"> Aula Meta: </mat-header-cell>
+              <mat-cell *matCellDef="let element" style="color: white!important;"> {{element.Aulas_Meta}} </mat-cell>
+            </ng-container>
+  
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Ações">
+              <mat-header-cell *matHeaderCellDef style="color: white!important;"> Ações: </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <button id="{{element.id}}" style="margin: 5px;color:white;background-color: #fe5800;" mat-mini-fab
+                  aria-label="Editar" (click)="Editar(element.id, element.Nome, element.Aulas_Meta)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button id="{{element.id}}" style="margin: 5px;color:white;background-color: #fe5800;" mat-mini-fab
+                  aria-label="Deletar" (click)="Deletar(element.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+  
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </mat-table>
+  
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+            <ng-template #loading>
+              <span>Carregando Lista...</span>
+            </ng-template>
+          </mat-paginator>
+  
+        </div>
+      </div>
+    </div>
+  </div>
